@@ -1,1 +1,8 @@
-angular.module('warehouse', ['infinite-scroll']);
+(function(){
+
+    'use strict';
+
+    angular.module('warehouse-app', ['infinite-scroll',
+                                     'products']);
+
+})();
