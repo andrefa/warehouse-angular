@@ -5,53 +5,19 @@
 
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/3.0.2/normalize.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.2/css/bootstrap.css">
+
         <!--inject:css-->
         <!--endinject-->
 
     </head>
     <body>
-        <header>
-            <h1>Discount Ascii Warehouse</h1>
 
-            <p>Here you're sure to find a bargain on some of the finest ascii available to purchase. Be sure to peruse our selection of ascii faces in an exciting range of sizes and prices.</p>
+        <ng-include src="'app/common/header.tmpl.html'"></ng-include>
 
-            <!--<p>But first, a word from our sponsors:</p> <script>document.write('<img class="ad" src="/ad/?r=' + Math.floor(Math.random()*1000) + '"/>');</script>-->
-        </header>
-
-        <section class="products" ng-controller="ProductsController as prdCtrl">
-            <div infinite-scroll="prdCtrl.fetchProducts()" infinite-scroll-disabled="prdCtrl.isFetchingProducts" infinite-scroll-distance='150'>
-
-                <div class="padding">
-                    <div ng-repeat="product in prdCtrl.products">
-
-                        <div>
-                            <div class="thumbnail col-sm-4 col-lg-3 padding">
-                                <div><label>ID</label>{{ product.id }}</div>
-                                <h2>{{ product.face }}</h2>
-                                <div><label>Size</label>{{ product.size }}</div>
-                                <div><label>Price</label>{{ product.price | currency }}</div>
-                                <div><label>Date</label>{{ product.date | date:'short' }}</div>
-                            </div>
-
-                            <div class="thumbnail col-sm-4 col-lg-3 padding" ng-if="prdCtrl.shouldDisplayAd($index)">
-                                <div>Advertising!</div>
-                                <h2>Advertising Title!</h2>
-                                <div>$$$</div>
-                                <div>$$$$</div>
-                                <div>$$</div>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-
-
-            </div>
-        </section>
+        <ng-include src="'app/products/products.tmpl.html'"></ng-include>
 
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
         <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
-        <script src="//cdnjs.cloudflare.com/ajax/libs/lodash.js/2.4.1/lodash.min.js"></script>
         <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.0-rc.0/angular.js"></script>
 
         <!--inject:js-->
