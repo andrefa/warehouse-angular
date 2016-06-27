@@ -1,4 +1,5 @@
 # warehouse-angular
+
 This is an ecommerce site, where you can buy all sorts of ascii faces like `(ノ・∀・)ノ` and `¯_(ツ)_/¯`, in a wide variety of font sizes. The homepage should display a list of products for people to browse.
 
 Please read the instructions and FAQ below before beginning.

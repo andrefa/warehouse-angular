@@ -6,8 +6,6 @@
 
     <p>But first, a word from our sponsors:</p>
 
-    <span id="adspan"></span>
-
-    <img ng-src="{{ '/ad/?r=' + window.Math.floor( window.Math.random() * 1000 ) }}" />
+    <img ng-src="{{ prdCtrl.buildAdUrl(-1) }}" />
 
 </header>
