@@ -15,7 +15,7 @@
             return result.data;
         };
 
-        var parseJsonResponseToArray = function(response) { //new RegExp('\n', 'g')
+        var parseJsonResponseToArray = function(response) {
             var normalized = String(response).trim().replace( /\n/g , ',');
             var arrStr = '[' + normalized + ']';
 

@@ -39,7 +39,7 @@
         };
 
         var pluralizeText = function(diff, name, div) {
-            var total = Math.floor(diff / div);
+            var total = Math.ceil(diff / div);
             return [total, (total === 1 ? name : name + 's'), 'ago'].join(' ');
         };
 
