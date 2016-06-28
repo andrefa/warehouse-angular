@@ -1,65 +1,77 @@
 (function() {
 
-    'use strict'
+    'use strict';
 
-    describe('ProductsModel Service Unit Tests', function() {
+    describe('relative date filter unit tests', function() {
 
-        var PRODUCT = { "id": 0, "face": "Development", "date" : "", "size" : "21" };
+        beforeEach(module('warehouse.filters.relativeDate'));
 
-        beforeEach(module('warehouse.models.products'));
+        var dateFilter;
+        var relativeFilter;
 
-        var ProductsModel;
-        var httpBackend;
-
-        beforeEach(inject(function(_ProductsModel_, $httpBackend){
-            ProductsModel = _ProductsModel_;
-            httpBackend = $httpBackend;
+        beforeEach(inject(function(_dateFilter_, _relativeFilter_){
+            dateFilter = _dateFilter_;
+            relativeFilter = _relativeFilter_;
         }));
 
-        afterEach(function(){
-            httpBackend.flush();
+        it('should says just now', function() {
+            var offset = 0;
+            testForOffset(offset, 'just now');
         });
 
-        it('Should request products json without parameters and return as promise', function() {
-
-            httpBackend.when('GET', '/api/products').respond(JSON.stringify(PRODUCT));
-
-            ProductsModel.getProducts().then(function(response) {
-                expect(response.length).toBe(1);
-
-                checkProduct(response[0], PRODUCT);
-            });
+        it('should says 1 minute ago', function() {
+            var offset = 31;
+            testForOffset(offset, '1 minute ago');
         });
 
-        it('Should request products json without with parameters and return as promise', function() {
-
-            httpBackend.when('GET', '/api/products?limit=1&skip=1&sort=1').respond(JSON.stringify(PRODUCT));
-
-            ProductsModel.getProducts(1,1,1).then(function(response) {
-                expect(response.length).toBe(1);
-
-                checkProduct(response[0], PRODUCT);
-            });
+        it('should says 2 minutes ago', function() {
+            var offset = 61;
+            testForOffset(offset, '2 minutes ago');
         });
 
-        it('Should request products json without with multiple results', function() {
-
-            var jsonResponse = JSON.stringify(PRODUCT) + '\n' + JSON.stringify(PRODUCT);
-            httpBackend.when('GET', '/api/products').respond(jsonResponse);
-
-            ProductsModel.getProducts().then(function(response) {
-                expect(response.length).toBe(2);
-
-                checkProduct(response[0], PRODUCT);
-                checkProduct(response[1], PRODUCT);
-            });
+        it('should says 1 hour ago', function() {
+            var offset = 60 * 60;
+            testForOffset(offset, '1 hour ago');
         });
 
-        var checkProduct = function(prodA, prodB) {
-            expect(prodA.id).toBe(prodB.id);
-            expect(prodA.face).toBe(prodB.face);
-            expect(prodA.date).toBe(prodB.date);
-            expect(prodA.size).toBe(prodB.size);
+        it('should says 2 hours ago', function() {
+            var offset = 120 * 60;
+            testForOffset(offset, '2 hours ago');
+        });
+
+        it('should says 1 day ago', function() {
+            var offset = 24 * 60 * 60;
+            testForOffset(offset, '1 day ago');
+        });
+
+        it('should says 2 days ago', function() {
+            var offset = 48 * 60 * 60;
+            testForOffset(offset, '2 days ago');
+        });
+
+        it('should says 1 day ago', function() {
+            var offset = 24 * 60 * 60;
+            testForOffset(offset, '1 day ago');
+        });
+
+        it('should says 6 days ago', function() {
+            var offset = 6 * 24 * 60 * 60;
+            testForOffset(offset, '6 days ago');
+        });
+
+        it('should says full date', function() {
+            var offset = 7 * 24 * 60 * 60;
+            var dateStr = strDateForOffset(offset);
+            expect(relativeFilter(dateStr)).toBe(dateFilter(Date.parse(dateStr), 'fullDate'));
+        });
+
+        var strDateForOffset = function(offsetInSecs) {
+            var offsetInMilli = offsetInSecs * 1000;
+            return String(new Date(new Date().getTime() - offsetInMilli));
+        };
+
+        var testForOffset = function(offsetInSecs, result) {
+            expect(relativeFilter(strDateForOffset(offsetInSecs))).toBe(result);
         };
 
     });

@@ -17,7 +17,7 @@
             var diff = dateDiffInSeconds(new Date(), date);
 
             switch (true) {
-                case (diff < minute):
+                case (diff < 30):
                     return 'just now';
 
                 case (diff < hour):
@@ -35,7 +35,7 @@
         };
 
         var dateDiffInSeconds = function(now, date) {
-            return Math.ceil(Math.abs(now - date) / 1000);
+            return Math.floor(Math.abs(now - date) / 1000);
         };
 
         var pluralizeText = function(diff, name, div) {
