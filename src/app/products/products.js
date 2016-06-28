@@ -1,6 +1,6 @@
 (function(){
 
-    'use strict'
+    'use strict';
 
     angular.module('products', ['warehouse.models.products', 'warehouse.filters.relativeDate'])
 		   .controller('ProductsListCtrl', ProductsListCtrl);
@@ -8,8 +8,8 @@
     ProductsListCtrl.$inject = ['ProductsModel'];
 	function ProductsListCtrl(ProductsModel) {
 
-        const PAGE_SIZE = 20;
-        const SORT_OPTIONS = ['price', 'size','id'];
+        var PAGE_SIZE = 20;
+        var SORT_OPTIONS = ['price', 'size','id'];
 
         var vm = this;
 
@@ -18,7 +18,7 @@
             vm.products = [];
             vm.sortBy = null;
             vm.reachedEnd = false;
-            vm.adSeed = Math.floor( Math.random() * 1000 );
+            vm.adSeed = Math.floor( Math.random() * 16 );
         };
 
         var fetchProducts = function() {
@@ -56,7 +56,7 @@
         };
 
         var buildAdUrl = function(index) {
-            return '/ad/?r=' + (vm.adSeed + index);
+            return '/ad/?r=' + ((vm.adSeed + ((index + 1) / 20)) % 16);
         };
 
         vm.fetchProducts = fetchProducts;
@@ -68,6 +68,6 @@
         clear();
         fetchProducts();
 
-    };
+    }
 
 })();

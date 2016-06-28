@@ -2,10 +2,10 @@
 
     'use strict';
 
-    const minute = 60;
-    const hour = minute * 60;
-    const day = hour * 24;
-    const week = day * 7;
+    var minute = 60;
+    var hour = minute * 60;
+    var day = hour * 24;
+    var week = day * 7;
 
     angular.module('warehouse.filters.relativeDate', [])
 		   .filter('relative', RelativeFilter);
@@ -31,8 +31,8 @@
 
                 default:
                     return dateFilter(date, 'fullDate');
-            };
-        }
+            }
+        };
 
         var dateDiffInSeconds = function(now, date) {
             return Math.ceil(Math.abs(now - date) / 1000);

@@ -1,6 +1,6 @@
 (function(){
 
-    'use strict'
+    'use strict';
 
     angular.module('warehouse.models.products', [])
 		   .service('ProductsModel', ProductsModel);
@@ -13,7 +13,7 @@
 
         function extract(result) {
             return result.data;
-        };
+        }
 
         var parseJsonResponseToArray = function(response) {
             var normalized = String(response).trim().replace( /\n/g , ',');
@@ -33,6 +33,6 @@
             }).then(extract);
         };
 
-    };
+    }
 
 })();
